@@ -18,7 +18,7 @@ public class JobDAO {
     private static final String DB_PASSWORD = "app";
 
     public boolean addJob(Job job) {
-    String sql = "INSERT INTO job (title, description, salary, location, postedDate, deadline) VALUES (?, ?, ?, ?, ?, ?)";
+    String sql = "INSERT INTO job (title, description, salary, location, postedDate, deadLine, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     try (Connection conn = DBConnection.getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -28,7 +28,8 @@ public class JobDAO {
         pstmt.setDouble(3, job.getSalary());
         pstmt.setString(4, job.getLocation());
         pstmt.setDate(5, new java.sql.Date(job.getPostedDate().getTime()));
-        pstmt.setDate(6, new java.sql.Date(job.getDeadline().getTime()));
+        pstmt.setDate(6, new java.sql.Date(job.getDeadLine().getTime()));
+        pstmt.setString(7, job.getStatus());
 
         int rowsAffected = pstmt.executeUpdate();
         return rowsAffected > 0;
@@ -58,7 +59,8 @@ public class JobDAO {
                 job.setSalary(rs.getDouble("salary"));
                 job.setLocation(rs.getString("location"));
                 job.setPostedDate(rs.getDate("postedDate"));
-                job.setDeadline(rs.getDate("deadline"));
+                job.setDeadLine(rs.getDate("deadLine"));
+                job.setStatus(rs.getString("status"));
                 jobs.add(job);
             }
         } catch (SQLException e) {
@@ -85,7 +87,7 @@ public class JobDAO {
                     job.setSalary(rs.getDouble("salary"));
                     job.setLocation(rs.getString("location"));
                     job.setPostedDate(rs.getDate("postedDate"));
-                    job.setDeadline(rs.getDate("deadline"));
+                    job.setDeadLine(rs.getDate("deadline"));
                 }
             }
         } catch (SQLException e) {
@@ -96,7 +98,7 @@ public class JobDAO {
 
     // Method to update a job posting
     public boolean updateJob(Job job) {
-    String sql = "UPDATE job SET title = ?, description = ?, salary = ?, location = ?, postedDate = ?, deadline = ? WHERE jobID = ?";
+    String sql = "UPDATE job SET title = ?, description = ?, salary = ?, location = ?, postedDate = ?, deadLine = ? WHERE jobID = ?";
     try (Connection conn = DBConnection.getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -105,16 +107,41 @@ public class JobDAO {
         pstmt.setDouble(3, job.getSalary());
         pstmt.setString(4, job.getLocation());
         pstmt.setDate(5, new java.sql.Date(job.getPostedDate().getTime()));
-        pstmt.setDate(6, new java.sql.Date(job.getDeadline().getTime()));
+        pstmt.setDate(6, new java.sql.Date(job.getDeadLine().getTime()));
         pstmt.setInt(7, job.getJobID());
-
-        return pstmt.executeUpdate() > 0;
+        
+        System.out.println("Executing query: " + pstmt.toString());
+        
+        int rowsAffected = pstmt.executeUpdate();
+        System.out.println("Rows affected: " + rowsAffected);
     } catch (SQLException e) {
         e.printStackTrace();
-        return false;
     }
+    return false;
 }
 
+    public void approveJob(int jobID) {
+        String sql = "Update job set status='approved' where jobID = ?";
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, jobID);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void rejectJob(int jobID) {
+        String sql="delete from job where jobID = ?";
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, jobID);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
     // Method to delete a job posting
     public boolean deleteJob(int jobID) {
     String sql = "DELETE FROM job WHERE jobID = ?";
@@ -150,7 +177,7 @@ public class JobDAO {
                 job.setSalary(rs.getDouble("salary"));
                 job.setLocation(rs.getString("location"));
                 job.setPostedDate(rs.getDate("posted_date"));
-                job.setDeadline(rs.getDate("deadline"));
+                job.setDeadLine(rs.getDate("deadLine"));
                 
                 jobList.add(job);
             }

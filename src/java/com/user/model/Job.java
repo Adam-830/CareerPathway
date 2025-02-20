@@ -9,19 +9,21 @@ public class Job {
     private double salary;
     private String location;
     private Date postedDate;
-    private Date deadline;
+    private Date deadLine;
+    private String status;
 
     // Constructors
     public Job() {}
 
-    public Job(int jobID, String title, String description, double salary, String location, Date postedDate, Date deadline) {
+    public Job(int jobID, String title, String description, double salary, String location, Date postedDate, Date deadLine, String status) {
         this.jobID = jobID;
         this.title = title;
         this.description = description;
         this.salary = salary;
         this.location = location;
         this.postedDate = postedDate;
-        this.deadline = deadline;
+        this.deadLine = deadLine;
+        this.status = status;
     }
 
     // Getters and Setters
@@ -73,11 +75,19 @@ public class Job {
         this.postedDate = postedDate;
     }
 
-    public Date getDeadline() {
-        return deadline;
+    public Date getDeadLine() {
+        return deadLine;
     }
 
-    public void setDeadline(Date deadline) {
-        this.deadline = deadline;
+    public void setDeadLine(Date deadLine) {
+        this.deadLine = deadLine;
+    }
+    
+     public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

@@ -24,7 +24,7 @@ public class AddJobController extends HttpServlet {
         double salary = Double.parseDouble(request.getParameter("salary"));
         String location = request.getParameter("location");
         Date postedDate = parseDate(request.getParameter("postedDate"));
-        Date deadline = parseDate(request.getParameter("deadline"));
+        Date deadLine = parseDate(request.getParameter("deadLine"));
 
         // Create a Job object
         Job job = new Job();
@@ -33,7 +33,7 @@ public class AddJobController extends HttpServlet {
         job.setSalary(salary);
         job.setLocation(location);
         job.setPostedDate(postedDate);
-        job.setDeadline(deadline);
+        job.setDeadLine(deadLine);
 
         // Add the job to the database
         JobDAO jobDAO = new JobDAO();

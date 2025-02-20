@@ -48,6 +48,10 @@
                         <th>Title</th>
                         <th>Description</th>
                         <th>Salary</th>
+                        <th>Location</th>
+                        <th>Posted</th>
+                        <th>Deadline</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -63,6 +67,10 @@
                         <td><%= job.getTitle() %></td>
                         <td><%= job.getDescription() %></td>
                         <td><%= job.getSalary() %></td>
+                        <td><%= job.getLocation() %></td>
+                        <td><%= job.getPostedDate() %></td>
+                        <td><%= job.getDeadLine() %></td>
+                        <td><%= job.getStatus() %></td>
                         <td>
                             <!-- Delete Form -->
                             <form action="AdminController" method="post" class="d-inline">
@@ -72,7 +80,19 @@
 
                             <!-- Edit Button -->
                             <button class="btn btn-warning" data-toggle="modal" data-target="#editJobModal<%= job.getJobID() %>">Edit</button>
-
+                            
+                            <!-- Approve Form -->
+                            <form action="AdminController" method="post" class="d-inline">
+                                 <input type="hidden" name="jobId" value="<%= job.getJobID() %>">
+                                 <button type="submit" name="action" value="approve" class="btn btn-success">Approve</button>
+                            </form>
+                            
+                            <!-- Reject Form -->
+                            <form action="AdminController" method="post" class="d-inline">
+                                <input type="hidden" name="jobId" value="<%= job.getJobID() %>">
+                                <button type="submit" name="action" value="reject" class="btn btn-danger">Reject</button>
+                            </form>
+                            
                             <!-- Edit Job Modal -->
                             <div class="modal fade" id="editJobModal<%= job.getJobID() %>" tabindex="-1" role="dialog">
                                 <div class="modal-dialog" role="document">
@@ -83,7 +103,7 @@
                                         </div>
                                         <div class="modal-body">
                                             <form action="AdminController" method="post">
-                                                <input type="hidden" name="jobId" value="<%= job.getJobID() %>">
+                                                <input type="hidden" name="jobId" value="<%= job.getJobID() %>"> 
                                                 <div class="form-group">
                                                     <label>Title</label>
                                                     <input type="text" name="title" class="form-control" value="<%= job.getTitle() %>" required>
@@ -100,6 +120,14 @@
                                                     <label>Location</label>
                                                     <input type="text" name="location" class="form-control" value="<%= job.getLocation() %>" required>
                                                 </div>
+                                                <div class="form-group">
+                                                    <label>Posted Date:</label>
+                                                    <input type="date" id="postedDate" name="postedDate" class="form-control" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Application Deadline:</label>
+                                                    <input type="date" id="deadline" name="deadline" class="form-control" required>
+                                                </div>
                                                 <button type="submit" name="action" value="update" class="btn btn-primary">Update Job</button>
                                             </form>
                                         </div>
@@ -113,7 +141,7 @@
                         } else {
                     %>
                     <tr>
-                        <td colspan="5" class="text-center">No pending job listings found.</td>
+                        <td colspan="9" class="text-center">No pending job listings found.</td>
                     </tr>
                     <%
                         }
@@ -123,9 +151,13 @@
         </section>
     </div>
 
+         <div class="container mt-5">
         <!-- Section for Managing Job Seekers -->
         <section>
             <h2>Manage Job Seekers</h2>
+            <div class="mb-3">
+                <a href="AddJobSeeker.jsp" class="btn btn-primary">Add Job Seeker</a>
+            </div>
             <table class="table table-striped table-light">
                 <thead>
                     <tr>

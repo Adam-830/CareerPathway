@@ -54,7 +54,7 @@
             <!-- Deadline -->
             <div class="form-group">
                 <label for="deadline">Application Deadline:</label>
-                <input type="date" id="deadline" name="deadline" class="form-control" required>
+                <input type="date" id="deadLine" name="deadLine" class="form-control" required>
             </div>
 
             <!-- Submit Button -->
