@@ -1,7 +1,7 @@
 package com.user.controller;
 
-import com.user.dao.JobDAO;
-import com.user.model.Job;
+import com.user.dao.JobSeekerDAO;
+import com.user.model.JobSeekers;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,33 +12,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "AddJobController", urlPatterns = {"/AddJobController"})
-public class AddJobController extends HttpServlet {
+@WebServlet(name = "AddJobSeeker", urlPatterns = {"/AddJobSeeker"})
+public class AddJobSeeker extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Retrieve form data
-        String title = request.getParameter("title");
-        String description = request.getParameter("description");
-        double salary = Double.parseDouble(request.getParameter("salary"));
-        String location = request.getParameter("location");
-        Date postedDate = parseDate(request.getParameter("postedDate"));
-        Date deadLine = parseDate(request.getParameter("deadLine"));
-
-        // Create a Job object
-        Job job = new Job();
-        job.setTitle(title);
-        job.setDescription(description);
-        job.setSalary(salary);
-        job.setLocation(location);
-        job.setPostedDate(postedDate);
-        job.setDeadLine(deadLine);
-        job.setStatus("pending");
+        String skills = request.getParameter("skills");
+        String experience = request.getParameter("experience");
+        String education = request.getParameter("education");
+        // Create a Job Seeker object
+        JobSeekers jobSeek = new JobSeekers();
+        jobSeek.setSkills(skills);
+        jobSeek.setExperience(experience);
+        jobSeek.setEducation(education);
 
         // Add the job to the database
-        JobDAO jobDAO = new JobDAO();
-        boolean isAdded = jobDAO.addJob(job);
+        JobSeekerDAO jobseekDAO = new JobSeekerDAO();
+        boolean isAdded = jobseekDAO.addJobSeeker(jobSeek);
 
         if (isAdded) {
             // Redirect to the admin dashboard with a success message

@@ -28,6 +28,14 @@
         <servlet-name>UpdateProfile</servlet-name>
         <servlet-class>com.user.controller.UpdateProfile</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddJobSeeker</servlet-name>
+        <servlet-class>com.user.controller.AddJobSeeker</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageJobSeeker</servlet-name>
+        <servlet-class>com.user.controller.ManageJobSeeker</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserController</servlet-name>
         <url-pattern>/UserController</url-pattern>
@@ -55,6 +63,14 @@
     <servlet-mapping>
         <servlet-name>UpdateProfile</servlet-name>
         <url-pattern>/UpdateProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddJobSeeker</servlet-name>
+        <url-pattern>/AddJobSeeker</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageJobSeeker</servlet-name>
+        <url-pattern>/ManageJobSeeker</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

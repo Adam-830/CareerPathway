@@ -16,7 +16,7 @@ public class JobSeekers implements java.io.Serializable{
     private String experience;
 
     // Database connection details
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/CareerPathway"; // Update with your database URL
+    private static final String DB_URL = "jdbc:derby://localhost:1527/CareerPathway"; // Update with your database URL
     private static final String DB_USER = "app"; // Update with your database username
     private static final String DB_PASSWORD = "app"; // Update with your database password
 
@@ -30,14 +30,18 @@ public class JobSeekers implements java.io.Serializable{
 
     // Default Constructor
     public JobSeekers() {
+        jobseekerID = 0;
+        skills = "";
+        education = "";
+        experience = "";
     }
 
     // Getters and Setters
-    public int getJobseekerID() {
+    public int getJobSeekerID() {
         return jobseekerID;
     }
 
-    public void setJobseekerID(int jobseekerID) {
+    public void setJobSeekerID(int jobseekerID) {
         this.jobseekerID = jobseekerID;
     }
 

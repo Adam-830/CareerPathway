@@ -13,7 +13,16 @@ public class Job {
     private String status;
 
     // Constructors
-    public Job() {}
+    public Job() {
+    jobID = 0;
+    title = "";
+    description = "";
+    salary = 0.0;
+    location = "";
+    postedDate = null;
+    deadLine = null;
+    status = "";
+    }
 
     public Job(int jobID, String title, String description, double salary, String location, Date postedDate, Date deadLine, String status) {
         this.jobID = jobID;

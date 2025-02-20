@@ -60,6 +60,11 @@ public class JobDAO {
                 job.setLocation(rs.getString("location"));
                 job.setPostedDate(rs.getDate("postedDate"));
                 job.setDeadLine(rs.getDate("deadLine"));
+                
+                // Debug: Print the status value from the database
+                String status = rs.getString("status");
+                System.out.println("Status from DB: " + status);
+                
                 job.setStatus(rs.getString("status"));
                 jobs.add(job);
             }

@@ -1,7 +1,9 @@
 package com.user.controller;
 
+import com.user.dao.JobSeekerDAO;
 import com.user.dao.JobDAO;
 import com.user.model.Job;
+import com.user.model.JobSeekers;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -30,7 +32,9 @@ public class AdminController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
+        String action2 = request.getParameter("action2");
         String jobIdParam = request.getParameter("jobId");
+        
         
         // Debug: Print action and jobId
         System.out.println("Action: " + action);
@@ -92,6 +96,6 @@ public class AdminController extends HttpServlet {
             e.printStackTrace();
         }
         
-    response.sendRedirect("admin.jsp");
+        
 }
 }

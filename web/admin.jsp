@@ -3,6 +3,8 @@
 <%@ page import="com.user.model.Job" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="com.user.dao.JobDAO" %>
+<%@ page import="com.user.dao.JobSeekerDAO" %>
+<%@ page import="com.user.model.JobSeekers" %>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -161,35 +163,69 @@
             <table class="table table-striped table-light">
                 <thead>
                     <tr>
-                        <th>User ID</th>
-                        <th>Full Name</th>
-                        <th>Email</th>
-                        <th>Status</th>
+                        <th>Job Seeker ID</th>
+                        <th>Skills</th>
+                        <th>Experience</th>
+                        <th>Education</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <%
                         // Fetch job seekers from the request attribute
-                        List<Map<String, String>> jobSeekers = (List<Map<String, String>>) request.getAttribute("jobSeekers");
-                        if (jobSeekers != null && !jobSeekers.isEmpty()) {
-                            for (Map<String, String> user : jobSeekers) {
+                        JobSeekerDAO jobseekerDAO = new JobSeekerDAO();
+                        List<JobSeekers> jobSeekerList = jobseekerDAO.getAllJobSeekers();
+                        if (jobSeekerList != null && !jobSeekerList.isEmpty()) {
+                            for (JobSeekers jobSeek : jobSeekerList){
                     %>
                     <tr>
-                        <td><%= user.get("UserID") %></td>
-                        <td><%= user.get("FullName") %></td>
-                        <td><%= user.get("Email") %></td>
-                        <td><%= user.get("Status") %></td>
+                        <td><%= jobSeek.getJobSeekerID() %></td>
+                        <td><%= jobSeek.getSkills() %></td>
+                        <td><%= jobSeek.getExperience() %></td>
+                        <td><%= jobSeek.getEducation() %></td>
                         <td>
-                            <form action="AdminController" method="post" class="d-inline">
-                                <input type="hidden" name="userId" value="<%= user.get("UserID") %>">
-                                <button type="submit" name="action" value="activate" class="btn btn-success">Activate</button>
+                            <!--Delete Form-->
+                            <form action="ManageJobSeeker" method="post" class="d-inline">
+                                <input type="hidden" name="jobSeekerId" value="<%= jobSeek.getJobSeekerID() %>">
+                                <button type="submit" name="action2" value="delete" class="btn btn-danger">Delete</button>
                             </form>
-                            <form action="AdminController" method="post" class="d-inline">
-                                <input type="hidden" name="userId" value="<%= user.get("UserID") %>">
-                                <button type="submit" name="action" value="deactivate" class="btn btn-warning">Deactivate</button>
-                            </form>
+                                
+                            <!-- Edit Button -->
+                            <button class="btn btn-warning" data-toggle="modal" data-target="#editJobModal<%= jobSeek.getJobSeekerID() %>">Edit</button>
+                            
+                            <!-- Edit Job Modal -->
+                            <div class="modal fade" id="editJobModal<%= jobSeek.getJobSeekerID() %>" tabindex="-1" role="dialog">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Edit Job Seeker</h5>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="ManageJobSeeker" method="post">
+                                                <input type="hidden" name="jobSeekerId" value="<%= jobSeek.getJobSeekerID() %>"> 
+                                                <div class="form-group">
+                                                    <label>Skills</label>
+                                                    <textarea name="skills" class="form-control" value="<%= jobSeek.getSkills() %>" required></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Experience</label>
+                                                    <textarea name="experience" class="form-control" required><%= jobSeek.getExperience()%></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Education</label>
+                                                    <textarea name="education" class="form-control" required><%= jobSeek.getEducation()%></textarea>
+                                                </div>
+                                                <button type="submit" name="action2" value="update" class="btn btn-primary">Update Job</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
+                       
+                        
+                        
                     </tr>
                     <%
                             }

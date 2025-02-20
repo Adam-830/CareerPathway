@@ -1,4 +1,4 @@
-package com.user.controller;
+/*package com.user.controller;
 
 import com.user.dao.JobSeekerDAO;
 import java.io.IOException;
@@ -36,4 +36,4 @@ public class UpdateProfile extends HttpServlet {
         // Redirect back to the profile page
         request.getRequestDispatcher("profile.jsp").forward(request, response);
     }
-}
+}*/
