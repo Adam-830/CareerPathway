@@ -36,6 +36,7 @@ public class UserController extends HttpServlet {
         if (user != null) {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
+            session.setAttribute("username", username);
 
             if ("admin".equalsIgnoreCase(user.getRole())) {
                 response.sendRedirect("admin.jsp");

@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -65,9 +66,15 @@ public class AdminController extends HttpServlet {
                 String salaryParam = request.getParameter("salary");
                 double salary = Double.parseDouble(request.getParameter("salary"));
                 String location = request.getParameter("location");
-                Date postedDate = new Date();
-                Date deadLine = new Date();
                 
+                // Retrieve postedDate and deadLine from the request
+                String postedDateStr = request.getParameter("postedDate");
+                String deadLineStr = request.getParameter("deadLine");
+                
+                // Parse the date strings into Timestamp objects
+                Timestamp postedDate = Timestamp.valueOf(postedDateStr.replace("T", " ") + ":00");
+                Timestamp deadLine = Timestamp.valueOf(deadLineStr.replace("T", " ") + ":00");
+
                 // Debug: Print other parameters
                 System.out.println("Title: " + title);
                 System.out.println("Description: " + description);
@@ -96,6 +103,6 @@ public class AdminController extends HttpServlet {
             e.printStackTrace();
         }
         
-        
+        response.sendRedirect("admin.jsp");
 }
 }

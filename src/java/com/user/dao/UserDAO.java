@@ -13,30 +13,55 @@ public class UserDAO {
     private static final String DB_USER = "app";
     private static final String DB_PASSWORD = "app";
 
-    // Method to validate user credentials
     public User validateUser(String username, String password) {
-        User user = null;
-        String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
-
+        String sql = "select username, password from users where username = ? and password = ?";
+        User user = new User();
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, username);
             pstmt.setString(2, password);
-
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    user = new User();
                     user.setUsername(rs.getString("username"));
-                    user.setEmail(rs.getString("email"));
-                    user.setPassword(rs.getString("password"));
+                    user.setEmail(rs.getString("password"));
+                    user.setPassword("password");
                     user.setRole(rs.getString("roles"));
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return user;
+             return user;   
+                
+    }
+    
+    // Method to check already existing username
+    public boolean isUsernameTaken(String username) {
+        String sql = "SELECT username FROM users WHERE username = ?";
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
+            boolean exists = rs.next();
+            System.out.println("Checking username: " + username + " exists? " + exists);
+            return exists;
+            /*try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    user = new User();
+                    user.setUsername(rs.getString("username"));
+                    user.setEmail(rs.getString("email"));
+                    user.setPassword(rs.getString("password"));
+                    user.setRole(rs.getString("roles"));
+                }*/
+                  
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error checking username: " + e.getMessage());
+        }
+        return false;
     }
 
     // Method to register a new user and insert into both `users` and `jobseeker` tables
@@ -45,7 +70,12 @@ public class UserDAO {
         PreparedStatement pstmtUser = null;
         PreparedStatement pstmtJobseeker = null;
         ResultSet generatedKeys = null;
-
+        
+        if (isUsernameTaken(user.getUsername())) {
+            System.out.println("Registration failed: Username already exists.");
+            return false;
+        }
+        
         try {
             // Load the JDBC driver and establish a connection
             Class.forName("org.apache.derby.jdbc.ClientDriver");

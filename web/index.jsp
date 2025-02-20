@@ -1,5 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
+<!-- If user didnt login yet, go to login page -->
+<%
+    if (session == null || session.getAttribute("username") == null) {
+       response.sendRedirect("login.jsp");
+        return;
+    }
+%>
+        
+<%
+    // Set session timeout (30 minutes)
+    int timeout = 1800; // 1800 seconds = 30 minutes
+    session.setMaxInactiveInterval(timeout);
+
+    // Check last activity
+    Long lastActivity = (Long) session.getAttribute("last_activity");
+    if (lastActivity != null && (System.currentTimeMillis() - lastActivity) > (timeout * 1000)) {
+        session.invalidate();
+        response.sendRedirect("login.jsp");
+        return;
+    }
+    session.setAttribute("last_activity", System.currentTimeMillis());
+
+    // Check if user is logged in
+    String username = (String) session.getAttribute("username");
+%>
+
 <html>
 
 <head>
@@ -57,7 +84,7 @@
             <% if (session.getAttribute("username") != null) { %>
               <li class="nav-item">
                 <a class="nav-link" href="profile.jsp">
-                  <img src="images/profile.png" alt="Profile Icon">
+                  <img src="images/profile.png" alt="Profile Icon" style="width: 100px; height: 100px;">
                   <span>Profile</span>
                 </a>
               </li>

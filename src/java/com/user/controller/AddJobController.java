@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,12 +20,14 @@ public class AddJobController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Retrieve form data
+        String postedDateStr = request.getParameter("postedDate");
+        String deadLineStr = request.getParameter("deadLine");
         String title = request.getParameter("title");
         String description = request.getParameter("description");
         double salary = Double.parseDouble(request.getParameter("salary"));
         String location = request.getParameter("location");
-        Date postedDate = parseDate(request.getParameter("postedDate"));
-        Date deadLine = parseDate(request.getParameter("deadLine"));
+        Timestamp postedDate = Timestamp.valueOf(postedDateStr.replace("T", " ") + ":00");
+        Timestamp deadLine = Timestamp.valueOf(deadLineStr.replace("T", " ") + ":00");
 
         // Create a Job object
         Job job = new Job();
@@ -59,5 +62,9 @@ public class AddJobController extends HttpServlet {
             e.printStackTrace();
             return null;
         }
+    }
+
+    private Timestamp parseTimestamp(String parameter) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

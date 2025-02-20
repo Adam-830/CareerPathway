@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,8 +28,8 @@ public class JobDAO {
         pstmt.setString(2, job.getDescription());
         pstmt.setDouble(3, job.getSalary());
         pstmt.setString(4, job.getLocation());
-        pstmt.setDate(5, new java.sql.Date(job.getPostedDate().getTime()));
-        pstmt.setDate(6, new java.sql.Date(job.getDeadLine().getTime()));
+        pstmt.setTimestamp(5, new java.sql.Timestamp(job.getPostedDate().getTime()));
+        pstmt.setTimestamp(6, new java.sql.Timestamp(job.getDeadLine().getTime()));
         pstmt.setString(7, job.getStatus());
 
         int rowsAffected = pstmt.executeUpdate();
@@ -58,8 +59,8 @@ public class JobDAO {
                 job.setDescription(rs.getString("description"));
                 job.setSalary(rs.getDouble("salary"));
                 job.setLocation(rs.getString("location"));
-                job.setPostedDate(rs.getDate("postedDate"));
-                job.setDeadLine(rs.getDate("deadLine"));
+                job.setPostedDate(rs.getTimestamp("postedDate"));
+                job.setDeadLine(rs.getTimestamp("deadLine"));
                 
                 // Debug: Print the status value from the database
                 String status = rs.getString("status");
@@ -91,8 +92,8 @@ public class JobDAO {
                     job.setDescription(rs.getString("description"));
                     job.setSalary(rs.getDouble("salary"));
                     job.setLocation(rs.getString("location"));
-                    job.setPostedDate(rs.getDate("postedDate"));
-                    job.setDeadLine(rs.getDate("deadline"));
+                    job.setPostedDate(rs.getTimestamp("postedDate"));
+                    job.setDeadLine(rs.getTimestamp("deadline"));
                 }
             }
         } catch (SQLException e) {
@@ -111,8 +112,8 @@ public class JobDAO {
         pstmt.setString(2, job.getDescription());
         pstmt.setDouble(3, job.getSalary());
         pstmt.setString(4, job.getLocation());
-        pstmt.setDate(5, new java.sql.Date(job.getPostedDate().getTime()));
-        pstmt.setDate(6, new java.sql.Date(job.getDeadLine().getTime()));
+        pstmt.setTimestamp(5, job.getPostedDate());
+        pstmt.setTimestamp(6, job.getDeadLine());
         pstmt.setInt(7, job.getJobID());
         
         System.out.println("Executing query: " + pstmt.toString());
@@ -181,8 +182,8 @@ public class JobDAO {
                 job.setDescription(rs.getString("description"));
                 job.setSalary(rs.getDouble("salary"));
                 job.setLocation(rs.getString("location"));
-                job.setPostedDate(rs.getDate("posted_date"));
-                job.setDeadLine(rs.getDate("deadLine"));
+                job.setPostedDate(rs.getTimestamp("postedDate"));
+                job.setDeadLine(rs.getTimestamp("deadLine"));
                 
                 jobList.add(job);
             }

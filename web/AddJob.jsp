@@ -48,13 +48,13 @@
             <!-- Posted Date -->
             <div class="form-group">
                 <label for="postedDate">Posted Date:</label>
-                <input type="date" id="postedDate" name="postedDate" class="form-control" required>
+                <input type="datetime-local" id="postedDate" name="postedDate" class="form-control" required>
             </div>
 
             <!-- Deadline -->
             <div class="form-group">
                 <label for="deadline">Application Deadline:</label>
-                <input type="date" id="deadLine" name="deadLine" class="form-control" required>
+                <input type="datetime-local" id="deadLine" name="deadLine" class="form-control" required>
             </div>
 
             <!-- Submit Button -->

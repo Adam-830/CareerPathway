@@ -28,7 +28,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">Admin Dashboard</a>
         <div class="ml-auto">
-            <a href="logout.jsp" class="btn btn-outline-light">Logout</a>
+            <a href="LogoutServlet.java" class="btn btn-outline-light">Logout</a>
         </div>
     </nav>
 
@@ -100,35 +100,35 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Edit Job</h5>
+                                            <h5 class="modal-title" style="color: black">Edit Job</h5>
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         </div>
                                         <div class="modal-body">
                                             <form action="AdminController" method="post">
                                                 <input type="hidden" name="jobId" value="<%= job.getJobID() %>"> 
                                                 <div class="form-group">
-                                                    <label>Title</label>
+                                                    <label style="color:black">Title</label>
                                                     <input type="text" name="title" class="form-control" value="<%= job.getTitle() %>" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Description</label>
+                                                    <label style="color:black">Description</label>
                                                     <textarea name="description" class="form-control" required><%= job.getDescription() %></textarea>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Salary</label>
+                                                    <label style="color:black">Salary</label>
                                                     <input type="number" name="salary" class="form-control" value="<%= job.getSalary() %>" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Location</label>
+                                                    <label style="color:black">Location</label>
                                                     <input type="text" name="location" class="form-control" value="<%= job.getLocation() %>" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Posted Date:</label>
-                                                    <input type="date" id="postedDate" name="postedDate" class="form-control" required>
+                                                    <label style="color:black">Posted Date:</label>
+                                                    <input type="datetime-local" id="postedDate" name="postedDate" class="form-control" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Application Deadline:</label>
-                                                    <input type="date" id="deadline" name="deadline" class="form-control" required>
+                                                    <label style="color:black">Application Deadline:</label>
+                                                    <input type="datetime-local" id="deadLine" name="deadLine" class="form-control" required>
                                                 </div>
                                                 <button type="submit" name="action" value="update" class="btn btn-primary">Update Job</button>
                                             </form>

@@ -1,6 +1,7 @@
 package com.user.model;
 
 import java.util.Date;
+import java.sql.Timestamp;
 
 public class Job {
     private int jobID;
@@ -8,8 +9,8 @@ public class Job {
     private String description;
     private double salary;
     private String location;
-    private Date postedDate;
-    private Date deadLine;
+    private Timestamp postedDate;
+    private Timestamp deadLine;
     private String status;
 
     // Constructors
@@ -24,7 +25,7 @@ public class Job {
     status = "";
     }
 
-    public Job(int jobID, String title, String description, double salary, String location, Date postedDate, Date deadLine, String status) {
+    public Job(int jobID, String title, String description, double salary, String location, Timestamp postedDate, Timestamp deadLine, String status) {
         this.jobID = jobID;
         this.title = title;
         this.description = description;
@@ -76,19 +77,19 @@ public class Job {
         this.location = location;
     }
 
-    public Date getPostedDate() {
+    public Timestamp getPostedDate() {
         return postedDate;
     }
 
-    public void setPostedDate(Date postedDate) {
+    public void setPostedDate(Timestamp postedDate) {
         this.postedDate = postedDate;
     }
 
-    public Date getDeadLine() {
+    public Timestamp getDeadLine() {
         return deadLine;
     }
 
-    public void setDeadLine(Date deadLine) {
+    public void setDeadLine(Timestamp deadLine) {
         this.deadLine = deadLine;
     }
     
