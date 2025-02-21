@@ -121,9 +121,6 @@ The primary objective of CareerPathway is to streamline the job search and hirin
 - **Unable to log in**: Ensure you are using the correct username and password. If you have forgotten your password, use the `Forgot Password` feature to reset it.
 - **Database connection error**: Verify that the database is running and the connection details in `DBConnection.java` are correct.
 
-### Contacting Support
-- For further assistance, contact the support team at `support@careerpathway.com`.
-
 ## Appendix
 
 ### Glossary of Terms
@@ -132,4 +129,4 @@ The primary objective of CareerPathway is to streamline the job search and hirin
 - **Admin**: A user with administrative privileges to manage the platform.
 
 ### References and Resources
-- [Project Repository](https://github.com/Adam-830/CareerPathway)
+- [Project Repository](https://github.com/Adam-830/CareerPathway/tree/master)
