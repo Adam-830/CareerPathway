@@ -1,4 +1,4 @@
-Introduction
+**Introduction**
 Overview
 CareerPathway is a comprehensive job portal designed to connect job seekers with potential employers. The platform allows users to create profiles, search for jobs, apply for positions, and manage their applications. Employers can post job listings, manage applications, and find suitable candidates.
 
