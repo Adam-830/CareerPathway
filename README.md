@@ -129,4 +129,4 @@ The primary objective of CareerPathway is to streamline the job search and hirin
 - **Admin**: A user with administrative privileges to manage the platform.
 
 ### References and Resources
-- [Project Repository](https://github.com/Adam-830/CareerPathway)
+- [Project Repository](https://github.com/Adam-830/CareerPathway/tree/master)
