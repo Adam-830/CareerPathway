@@ -35,8 +35,8 @@ The primary objective of CareerPathway is to streamline the job search and hirin
 4. Configure the database connection in `src/util/DBConnection.java`
 
 ### Configuration Steps
-1. Open the project in your preferred IDE (e.g., IntelliJ IDEA, Eclipse).
-2. Configure the server (e.g., Apache Tomcat) to run the project.
+1. Open the project in your preferred IDE (e.g., Netbeans, IntelliJ IDEA, Eclipse).
+2. Configure the server (e.g., Glassfish) to run the project.
 3. Deploy the project to the server and ensure it is running.
 
 ## Using the Application
